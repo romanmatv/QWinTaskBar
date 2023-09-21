@@ -11,6 +11,7 @@ DEFINES += QWINTASKBAR_LIBRARY
 CONFIG += c++17
 CONFIG += debug_and_release
 CONFIG += build_all
+CONFIG += myfeatures
 
 CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,d)
@@ -32,7 +33,7 @@ QMAKE_TARGET_DESCRIPTION = "Windows TaskBar extention for Qt"
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += skip_target_version_ext
-DESTDIR = bin
+DESTDIR = lib
 
 SOURCES += \
     qwintaskbar.cpp
@@ -49,3 +50,15 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    QWinTaskBar
+
+
+inclFiles.files  += $${PWD}/qwintaskbar.h
+inclFiles.files  += $${PWD}/QWinTaskBar_global.h
+inclFiles.files  += $${PWD}/QWinTaskBar
+
+inclFiles.path     = $${OUT_PWD}/include
+
+INSTALLS          += inclFiles
